@@ -17,7 +17,7 @@ export default function LandingPage({ onStart }) {
 
   return (
     <div className="landing-wrapper">
-      {/* Dynamic Video Background */}
+      {/* Dynamic Video Background (Visuals) */}
       <div className="video-background-container">
         <video 
           className="video-background"
@@ -30,6 +30,17 @@ export default function LandingPage({ onStart }) {
         </video>
         <div className="video-overlay"></div>
       </div>
+
+      {/* Hidden YouTube Audio Player */}
+      <iframe
+        width="1"
+        height="1"
+        src="https://www.youtube.com/embed/fhL67fnDXcU?autoplay=1&controls=0&loop=1&playlist=fhL67fnDXcU"
+        title="YouTube audio background"
+        frameBorder="0"
+        allow="autoplay"
+        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+      ></iframe>
 
       {/* Dynamic Background Effects (Kept for fallback/extra glow) */}
       <div className="ambient-glow glow-1"></div>
@@ -53,7 +64,7 @@ export default function LandingPage({ onStart }) {
               <motion.div 
                 animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }} 
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                style={{ color: 'var(--neon-blue)' }}
+                style={{ color: 'var(--neon-2)' }}
               >
                 <Bot size={64} />
               </motion.div>
