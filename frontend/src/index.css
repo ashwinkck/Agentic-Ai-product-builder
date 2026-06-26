@@ -68,9 +68,17 @@ body {
   100% { transform: scale(1.2); opacity: 0.6; }
 }
 
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* --- Typography & Utilities --- */
 .text-gradient {
-  background: linear-gradient(90deg, var(--neon-1), var(--neon-2), var(--neon-3));
+  background: linear-gradient(270deg, var(--neon-1), var(--neon-2), var(--neon-3), var(--neon-1));
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

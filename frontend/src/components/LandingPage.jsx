@@ -19,11 +19,11 @@ export default function LandingPage({ onStart }) {
     <div className="landing-wrapper">
       {/* Dynamic Video Background (Visuals) */}
       <div className="video-background-container">
-        <video 
+        <video
           className="video-background"
-          autoPlay 
-          loop 
-          muted 
+          autoPlay
+          loop
+          muted
           playsInline
         >
           <source src="/assets/wallpaper.mp4" type="video/mp4" />
@@ -61,29 +61,38 @@ export default function LandingPage({ onStart }) {
 
 
             <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', marginBottom: '1.5rem', width: '100%' }}>
-              <motion.div 
-                animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }} 
+              <motion.div
+                animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 style={{ color: 'var(--neon-2)' }}
               >
                 <Bot size={64} />
               </motion.div>
-              
-              <h1 className="hero-title" style={{ margin: 0 }}>
-                <span className="text-gradient">LaunchPad AI</span>
-              </h1>
 
-              <motion.div 
-                animate={{ y: [0, -20, 0], rotate: [0, -10, 10, 0] }} 
+              <motion.h1
+                className="hero-title"
+                style={{ margin: 0 }}
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <span className="text-gradient">LaunchPad AI</span>
+              </motion.h1>
+
+              <motion.div
+                animate={{ y: [0, -20, 0], rotate: [0, -10, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                style={{ color: 'var(--neon-blue)' }}
+                style={{ color: 'var(--neon-2)' }}
               >
                 <Bot size={64} />
               </motion.div>
             </motion.div>
 
-            <motion.p variants={itemVariants} className="hero-subtitle">
-              Leverage a specialized crew of AI agents—a Market Oracle, Feature Architect, Tech Stack Architect, and Product Strategist—equipped with a RAG startup knowledge base to instantly validate, design, and plan your startup idea.
+            <motion.p
+              className="hero-subtitle"
+              animate={{ y: [0, -5, 0], opacity: [0.8, 1, 0.8] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            >
+              Leverage a specialized crew of AI agents. A Market Oracle, Feature Architect, Tech Stack Architect, and Product Strategist equipped with a RAG startup knowledge base to instantly validate, design, and plan your startup idea.
             </motion.p>
 
             <motion.div variants={itemVariants} className="hero-cta-group">
