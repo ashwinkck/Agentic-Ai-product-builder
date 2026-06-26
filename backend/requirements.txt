@@ -9,3 +9,4 @@ chromadb
 python-dotenv
 pydantic
 litellm
+sentence-transformers
