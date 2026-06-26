@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export default function Builder({ onBack }) {
   const [idea, setIdea] = useState('')
@@ -36,9 +37,26 @@ Your idea looks solid and the agents are ready to build the actual plan!
         </button>
       </nav>
 
-      <main className="builder-main">
-        <h1 className="builder-title">LaunchPad AI Builder</h1>
-        <div className="container futuristic-border glass-panel">
+      <motion.main 
+        className="builder-main"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+      >
+        <motion.h1 
+          className="builder-title"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          LaunchPad AI Builder
+        </motion.h1>
+        <motion.div 
+          className="container futuristic-border glass-panel"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
           <div className="input-group">
             <label htmlFor="startup-idea">INITIALIZE SEQUENCE // ENTER STARTUP IDEA</label>
             <textarea 
@@ -68,8 +86,8 @@ Your idea looks solid and the agents are ready to build the actual plan!
               )}
             </div>
           )}
-        </div>
-      </main>
+        </motion.div>
+      </motion.main>
     </div>
   )
 }

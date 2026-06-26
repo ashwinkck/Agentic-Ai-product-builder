@@ -1,7 +1,17 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { ArrowRight, Bot, Cpu, Zap, Activity } from 'lucide-react'
 
 export default function LandingPage({ onStart }) {
+  const [isInitializing, setIsInitializing] = useState(false)
+
+  const handleStart = () => {
+    setIsInitializing(true)
+    setTimeout(() => {
+      onStart()
+    }, 2000)
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -16,7 +26,11 @@ export default function LandingPage({ onStart }) {
   }
 
   return (
-    <div className="landing-wrapper">
+    <motion.div 
+      className="landing-wrapper"
+      animate={isInitializing ? { scale: 1.2, opacity: 0 } : { scale: 1, opacity: 1 }}
+      transition={{ duration: 2, ease: "easeInOut" }}
+    >
 
       <main className="landing-main">
         {/* Hero Section */}
@@ -31,8 +45,14 @@ export default function LandingPage({ onStart }) {
 
             <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', marginBottom: '1.5rem', width: '100%' }}>
               <motion.div
-                animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                animate={isInitializing ? {
+                  scale: [1, 1.5, 0.8, 1.8, 1],
+                  rotate: [0, -180, 180, -360, 360],
+                  y: [0, -40, 20, -60, 0],
+                  x: [0, -50, 50, -20, 0],
+                  color: ['var(--neon-1)', 'var(--neon-2)', 'var(--neon-3)', 'var(--neon-4)']
+                } : { y: [0, -15, 0], rotate: [0, 10, -10, 0] }}
+                transition={isInitializing ? { duration: 2, ease: "easeInOut" } : { duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 style={{ color: 'var(--neon-2)' }}
               >
                 <Bot size={64} />
@@ -48,8 +68,14 @@ export default function LandingPage({ onStart }) {
               </motion.h1>
 
               <motion.div
-                animate={{ y: [0, -20, 0], rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                animate={isInitializing ? {
+                  scale: [1, 1.5, 0.8, 1.8, 1],
+                  rotate: [0, 180, -180, 360, -360],
+                  y: [0, -40, 20, -60, 0],
+                  x: [0, 50, -50, 20, 0],
+                  color: ['var(--neon-4)', 'var(--neon-3)', 'var(--neon-2)', 'var(--neon-1)']
+                } : { y: [0, -20, 0], rotate: [0, -10, 10, 0] }}
+                transition={isInitializing ? { duration: 2, ease: "easeInOut" } : { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                 style={{ color: 'var(--neon-2)' }}
               >
                 <Bot size={64} />
@@ -65,8 +91,8 @@ export default function LandingPage({ onStart }) {
             </motion.p>
 
             <motion.div variants={itemVariants} className="hero-cta-group">
-              <button className="primary-btn" onClick={onStart}>
-                Initialize System <ArrowRight size={20} />
+              <button className="primary-btn" onClick={handleStart} disabled={isInitializing}>
+                {isInitializing ? 'INITIALIZING...' : <>Initialize System <ArrowRight size={20} /></>}
               </button>
               <button className="secondary-btn">
                 Read Documentation
@@ -124,6 +150,6 @@ export default function LandingPage({ onStart }) {
           </div>
         </section>
       </main>
-    </div>
+    </motion.div>
   )
 }

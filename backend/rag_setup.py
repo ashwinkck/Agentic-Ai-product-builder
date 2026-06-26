@@ -5,8 +5,8 @@ from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
 #2 loading the pdf Doc's
-loader1 = PyPDFLoader(r"C:\Users\ashwi\Desktop\medicaps\session4\ai-product-builder\data\startups.pdf")
-loader2 = PyPDFLoader(r"C:\Users\ashwi\Desktop\medicaps\session4\ai-product-builder\data\tech_trends.pdf")
+loader1 = PyPDFLoader(r"/home/ash/Agentic-Ai-product-builder/data/startups.pdf")
+loader2 = PyPDFLoader(r"/home/ash/Agentic-Ai-product-builder/data/tech_trends.pdf")
 
 doc1 = loader1.load()
 doc2 = loader2.load()
