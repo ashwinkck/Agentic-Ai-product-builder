@@ -4,7 +4,7 @@ import { ArrowRight, Bot, Cpu, Zap, Activity } from 'lucide-react'
 export default function LandingPage({ onStart }) {
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: { staggerChildren: 0.2, delayChildren: 0.1 }
     }
@@ -35,25 +35,25 @@ export default function LandingPage({ onStart }) {
       <main className="landing-main">
         {/* Hero Section */}
         <section className="hero-section">
-          <motion.div 
-            initial="hidden" 
-            animate="visible" 
+          <motion.div
+            initial="hidden"
+            animate="visible"
             variants={containerVariants}
             className="hero-content"
           >
             <motion.div variants={itemVariants} className="badge">
               <span className="live-dot"></span> System Online
             </motion.div>
-            
+
             <motion.h1 variants={itemVariants} className="hero-title">
-              AI Agentic<br/>
-              <span className="text-gradient">Product Builder</span>
+              AI Agentic<br />
+              <span className="text-gradient">LaunchPad AI</span>
             </motion.h1>
-            
+
             <motion.p variants={itemVariants} className="hero-subtitle">
-              Deploy a swarm of autonomous AI agents to research, design, and plan your next big startup idea in seconds. Powered by advanced multi-agent architecture.
+              Leverage a specialized crew of AI agents—a Market Oracle, Feature Architect, Tech Stack Architect, and Product Strategist—equipped with a RAG startup knowledge base to instantly validate, design, and plan your startup idea.
             </motion.p>
-            
+
             <motion.div variants={itemVariants} className="hero-cta-group">
               <button className="primary-btn" onClick={onStart}>
                 Initialize System <ArrowRight size={20} />
@@ -64,23 +64,23 @@ export default function LandingPage({ onStart }) {
             </motion.div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
             className="hero-graphic"
           >
             <div className="abstract-sphere">
-               <div className="orbiting-dot dot-1"></div>
-               <div className="orbiting-dot dot-2"></div>
-               <div className="orbiting-dot dot-3"></div>
+              <div className="orbiting-dot dot-1"></div>
+              <div className="orbiting-dot dot-2"></div>
+              <div className="orbiting-dot dot-3"></div>
             </div>
           </motion.div>
         </section>
 
         {/* Features Section */}
         <section className="features-section">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -92,11 +92,12 @@ export default function LandingPage({ onStart }) {
 
           <div className="features-grid">
             {[
-              { icon: <Bot size={32}/>, title: 'Market Analyst', desc: 'Scours the web in real-time to analyze competitors, target audience, and market trends.' },
-              { icon: <Cpu size={32}/>, title: 'Tech Lead', desc: 'Architects the optimal tech stack and infrastructure for high scalability and performance.' },
-              { icon: <Zap size={32}/>, title: 'Product Manager', desc: 'Synthesizes findings into actionable features, user stories, and a concrete roadmap.' }
+              { icon: <Activity size={32} />, title: 'Market Oracle', desc: 'A legendary venture analyst who understands market demand and startup trends.' },
+              { icon: <Bot size={32} />, title: 'Feature Architect', desc: 'A product designer who turns abstract ideas into real, actionable product features.' },
+              { icon: <Cpu size={32} />, title: 'Tech Architect', desc: 'A senior software architect who recommends the optimal modern tech stack.' },
+              { icon: <Zap size={32} />, title: 'Product Strategist', desc: 'An experienced startup founder who creates a complete product launch roadmap.' }
             ].map((feature, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
