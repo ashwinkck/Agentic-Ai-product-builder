@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -34,6 +34,29 @@ export default function Builder({ onBack }) {
       setIsLoading(false)
     }
   }
+
+  const agentThoughts = [
+    "Market Oracle is analyzing market demand and finding your target audience...",
+    "Feature Architect is blueprinting the core product features...",
+    "Tech Stack Architect is evaluating the optimal technologies...",
+    "Product Strategist is drafting the launch roadmap...",
+    "Synthesizing final startup blueprint..."
+  ];
+  
+  const [currentThought, setCurrentThought] = useState(0);
+
+  // Cycle through thoughts while loading
+  useEffect(() => {
+    let interval;
+    if (isLoading) {
+      interval = setInterval(() => {
+        setCurrentThought(prev => (prev < agentThoughts.length - 1 ? prev + 1 : prev));
+      }, 10000); // Change thought every 10 seconds
+    } else {
+      setCurrentThought(0);
+    }
+    return () => clearInterval(interval);
+  }, [isLoading]);
 
   return (
     <div className="builder-container">
@@ -84,8 +107,11 @@ export default function Builder({ onBack }) {
           {(isLoading || result) && (
             <div className="result-area">
               {isLoading ? (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
                   <div className="loading-spinner"></div>
+                  <div className="thinking-text blur-in" key={currentThought}>
+                    {agentThoughts[currentThought]}
+                  </div>
                 </div>
               ) : (
                 <div style={{ whiteSpace: 'pre-wrap', textAlign: 'left', lineHeight: '1.6' }}>{result}</div>

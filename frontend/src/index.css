@@ -550,3 +550,31 @@ textarea:focus {
   background: radial-gradient(circle at center, transparent 0%, var(--bg-color) 100%);
   pointer-events: none;
 }
+
+/* Thinking UI Animations */
+.thinking-text {
+  font-family: 'Inter', sans-serif;
+  color: var(--accent-blue);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.blur-in {
+  animation: blurIn 1.5s ease-out forwards;
+}
+
+@keyframes blurIn {
+  0% {
+    filter: blur(10px);
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

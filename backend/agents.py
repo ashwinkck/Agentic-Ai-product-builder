@@ -36,27 +36,26 @@ def patched_completion(*args, **kwargs):
     # Shuffle keys to load balance, then try them sequentially on failure
     random.shuffle(keys)
     
-    while True:
-        last_error = None
-        for api_key in keys:
-            try:
-                kwargs["api_key"] = api_key
-                return original_completion(*args, **kwargs)
-            except Exception as e:
-                err_str = str(e).lower()
-                # If it's a rate limit error, catch it and loop to the next API key!
-                if "rate limit" in err_str or "429" in err_str or "rate_limit_exceeded" in err_str:
-                    last_error = e
-                    time.sleep(0.5) # Quick pause before trying the next key
-                    continue
-                else:
-                    # If it's a different error, fail normally
-                    raise e
-                    
-        # If every single key is rate limited, DO NOT crash.
-        # Groq usually asks to wait ~12-14 seconds. We will wait 15s and retry all keys!
-        print("All keys rate limited. Pausing for 15 seconds to respect limits...")
-        time.sleep(15)
+    last_error = None
+    for api_key in keys:
+        try:
+            kwargs["api_key"] = api_key
+            return original_completion(*args, **kwargs)
+        except Exception as e:
+            err_str = str(e).lower()
+            # If it's a rate limit error, catch it and loop to the next API key!
+            if "rate limit" in err_str or "429" in err_str or "rate_limit_exceeded" in err_str:
+                last_error = e
+                time.sleep(0.5) # Quick pause before trying the next key
+                continue
+            else:
+                # If it's a different error, fail normally
+                raise e
+                
+    # If every single key is rate limited, raise the last error
+    if last_error:
+        raise last_error
+    return original_completion(*args, **kwargs)
 
 litellm.completion = patched_completion
 # ----------------------------------------------
