@@ -113,11 +113,50 @@ export default function Builder({ onBack }) {
           {(isLoading || result) && (
             <div className="result-area">
               {isLoading ? (
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-                  <div className="loading-spinner"></div>
-                  <div className="thinking-text blur-in" key={currentThought}>
-                    {agentThoughts[currentThought]}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', padding: '2rem 0' }}>
+                  {/* High-Tech Radar Pulse Animation */}
+                  <div style={{ position: 'relative', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {[0, 1, 2].map((ring) => (
+                      <motion.div
+                        key={ring}
+                        animate={{ scale: [1, 2.5], opacity: [0.8, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeOut', delay: ring * 0.6 }}
+                        style={{
+                          position: 'absolute',
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: '50%',
+                          border: '2px solid var(--neon-2)',
+                        }}
+                      />
+                    ))}
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        backgroundColor: ['var(--neon-1)', 'var(--neon-3)', 'var(--neon-1)']
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--neon-1)',
+                        boxShadow: '0 0 20px var(--neon-1)'
+                      }}
+                    />
                   </div>
+
+                  {/* Animated Text */}
+                  <motion.div 
+                    className="thinking-text" 
+                    key={currentThought}
+                    initial={{ opacity: 0, filter: 'blur(10px)', y: 10 }}
+                    animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    style={{ color: 'var(--neon-2)', letterSpacing: '2px', fontSize: '0.9rem', textAlign: 'center' }}
+                  >
+                    {agentThoughts[currentThought]}
+                  </motion.div>
                 </div>
               ) : result?.error ? (
                 <div style={{ whiteSpace: 'pre-wrap', textAlign: 'left', lineHeight: '1.6' }}>{result.error}</div>
