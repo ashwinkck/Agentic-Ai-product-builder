@@ -36,26 +36,27 @@ def patched_completion(*args, **kwargs):
     # Shuffle keys to load balance, then try them sequentially on failure
     random.shuffle(keys)
     
-    last_error = None
-    for api_key in keys:
-        try:
-            kwargs["api_key"] = api_key
-            return original_completion(*args, **kwargs)
-        except Exception as e:
-            err_str = str(e).lower()
-            # If it's a rate limit error, catch it and loop to the next API key!
-            if "rate limit" in err_str or "429" in err_str or "rate_limit_exceeded" in err_str:
-                last_error = e
-                time.sleep(0.5) # Quick pause before trying the next key
-                continue
-            else:
-                # If it's a different error, fail normally
-                raise e
-                
-    # If every single key is rate limited, raise the last error
-    if last_error:
-        raise last_error
-    return original_completion(*args, **kwargs)
+    while True:
+        last_error = None
+        for api_key in keys:
+            try:
+                kwargs["api_key"] = api_key
+                return original_completion(*args, **kwargs)
+            except Exception as e:
+                err_str = str(e).lower()
+                # If it's a rate limit error, catch it and loop to the next API key!
+                if "rate limit" in err_str or "429" in err_str or "rate_limit_exceeded" in err_str:
+                    last_error = e
+                    time.sleep(0.5) # Quick pause before trying the next key
+                    continue
+                else:
+                    # If it's a different error, fail normally
+                    raise e
+                    
+        # If every single key is rate limited, DO NOT crash.
+        # Groq usually asks to wait ~12-14 seconds. We will wait 15s and retry all keys!
+        print("Agents are thinking.........")
+        time.sleep(15)
 
 litellm.completion = patched_completion
 # ----------------------------------------------
@@ -89,7 +90,7 @@ market_oracle = Agent(
     goal=  "Understand market demand for startup ideas",
     backstory = "A legendary venture analyst who understands startup market and trends",
     llm=llm,
-    max_iter=3,
+    # max_iter=3, # Uncomment if you add tools back
     verbose = True
 )
 
@@ -98,7 +99,7 @@ feature_architect = Agent(
     goal = "Design product features for startup ideas",
     backstory = "A product designer who turns ideas into real product features",
     llm=llm,
-    max_iter=3,
+    # max_iter=3,
     verbose = True
 )
 
@@ -107,7 +108,7 @@ tech_stack_architect = Agent(
     goal = "Recommend technologies for building the product",
     backstory = "A senior software architect with deep knowledge of modern tech stacks",
     llm=llm,
-    max_iter=3,
+    # max_iter=3,
     verbose = True
 )
 
@@ -116,6 +117,6 @@ product_strategist = Agent(
     goal = "Create a complete product roadmap",
     backstory = "An experienced startup founder who plans product launches",
     llm=llm,
-    max_iter=3,
+    # max_iter=3,
     verbose = True
 )
