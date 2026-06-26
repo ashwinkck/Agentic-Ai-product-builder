@@ -35,23 +35,23 @@ export default function LandingPage({ onStart }) {
           >
 
 
-            <motion.div variants={itemVariants} style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+            <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', marginBottom: '1.5rem', width: '100%' }}>
               <motion.div 
                 animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }} 
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                style={{ position: 'absolute', left: '-20px', top: '10px', color: 'var(--neon-blue)' }}
+                style={{ color: 'var(--neon-blue)' }}
               >
                 <Bot size={64} />
               </motion.div>
               
-              <h1 className="hero-title" style={{ position: 'relative', zIndex: 1 }}>
+              <h1 className="hero-title" style={{ margin: 0 }}>
                 <span className="text-gradient">LaunchPad AI</span>
               </h1>
 
               <motion.div 
                 animate={{ y: [0, -20, 0], rotate: [0, -10, 10, 0] }} 
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                style={{ position: 'absolute', right: '-20px', top: '20px', color: 'var(--neon-blue)' }}
+                style={{ color: 'var(--neon-blue)' }}
               >
                 <Bot size={64} />
               </motion.div>
