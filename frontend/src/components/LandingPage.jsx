@@ -41,12 +41,9 @@ export default function LandingPage({ onStart }) {
             variants={containerVariants}
             className="hero-content"
           >
-            <motion.div variants={itemVariants} className="badge">
-              <span className="live-dot"></span> System Online
-            </motion.div>
+
 
             <motion.h1 variants={itemVariants} className="hero-title">
-              AI Agentic<br />
               <span className="text-gradient">LaunchPad AI</span>
             </motion.h1>
 
