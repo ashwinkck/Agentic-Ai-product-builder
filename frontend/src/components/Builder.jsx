@@ -42,7 +42,7 @@ Your idea looks solid and the agents are ready to build the actual plan!
       </nav>
 
       <main className="builder-main">
-        <h1 className="builder-title">Command Center</h1>
+        <h1 className="builder-title">LaunchPad AI Builder</h1>
         <div className="container futuristic-border glass-panel">
           <div className="input-group">
             <label htmlFor="startup-idea">INITIALIZE SEQUENCE // ENTER STARTUP IDEA</label>

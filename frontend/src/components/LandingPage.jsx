@@ -25,7 +25,7 @@ export default function LandingPage({ onStart }) {
       <nav className="top-nav">
         <div className="nav-logo">
           <Activity className="text-neon-blue" size={28} />
-          <span className="font-bold">AGENTIC.AI</span>
+          <span className="font-bold">LAUNCHPAD.AI</span>
         </div>
         <button className="launch-app-btn" onClick={onStart}>
           Launch App
