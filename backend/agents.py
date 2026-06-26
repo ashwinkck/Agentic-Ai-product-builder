@@ -9,6 +9,7 @@ load_dotenv()
 
 # --- MONKEY PATCH LITELLM TO FIX GROQ ERROR ---
 import random
+import time
 original_completion = litellm.completion
 
 def patched_completion(*args, **kwargs):
@@ -17,22 +18,45 @@ def patched_completion(*args, **kwargs):
             if "cache_breakpoint" in msg:
                 del msg["cache_breakpoint"]
     
-    # --- API KEY ROTATION TO PREVENT RATE LIMITS ---
-    # It will randomly pick one of your keys for each request
+    # Load all valid keys
     keys = []
     for i in range(1, 6):
         key = os.getenv(f"GROQ_API_KEY_{i}")
-        if key:
+        if key and key.startswith("gsk_"):
             keys.append(key)
     
-    if not keys and os.getenv("GROQ_API_KEY"):
-        keys.append(os.getenv("GROQ_API_KEY"))
+    if not keys:
+        fallback = os.getenv("GROQ_API_KEY")
+        if fallback and fallback.startswith("gsk_"):
+            keys.append(fallback)
+            
+    if not keys:
+        return original_completion(*args, **kwargs)
         
-    if keys:
-        kwargs["api_key"] = random.choice(keys)
-    # -----------------------------------------------
-
-    return original_completion(*args, **kwargs)
+    # Shuffle keys to load balance, then try them sequentially on failure
+    random.shuffle(keys)
+    
+    while True:
+        last_error = None
+        for api_key in keys:
+            try:
+                kwargs["api_key"] = api_key
+                return original_completion(*args, **kwargs)
+            except Exception as e:
+                err_str = str(e).lower()
+                # If it's a rate limit error, catch it and loop to the next API key!
+                if "rate limit" in err_str or "429" in err_str or "rate_limit_exceeded" in err_str:
+                    last_error = e
+                    time.sleep(0.5) # Quick pause before trying the next key
+                    continue
+                else:
+                    # If it's a different error, fail normally
+                    raise e
+                    
+        # If every single key is rate limited, DO NOT crash.
+        # Groq usually asks to wait ~12-14 seconds. We will wait 15s and retry all keys!
+        print("All keys rate limited. Pausing for 15 seconds to respect limits...")
+        time.sleep(15)
 
 litellm.completion = patched_completion
 # ----------------------------------------------
@@ -65,7 +89,6 @@ market_oracle = Agent(
     role = "Market Oracle",
     goal=  "Understand market demand for startup ideas",
     backstory = "A legendary venture analyst who understands startup market and trends",
-    tools=[startup_tool],
     llm=llm,
     max_iter=3,
     verbose = True
@@ -75,7 +98,6 @@ feature_architect = Agent(
     role = "Feature Architect",
     goal = "Design product features for startup ideas",
     backstory = "A product designer who turns ideas into real product features",
-    tools=[startup_tool],
     llm=llm,
     max_iter=3,
     verbose = True
@@ -85,7 +107,6 @@ tech_stack_architect = Agent(
     role = "Tech Stack Architect",
     goal = "Recommend technologies for building the product",
     backstory = "A senior software architect with deep knowledge of modern tech stacks",
-    tools = [startup_tool],
     llm=llm,
     max_iter=3,
     verbose = True
@@ -95,7 +116,6 @@ product_strategist = Agent(
     role = "Product Strategist",
     goal = "Create a complete product roadmap",
     backstory = "An experienced startup founder who plans product launches",
-    tools = [startup_tool],
     llm=llm,
     max_iter=3,
     verbose = True
