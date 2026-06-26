@@ -17,7 +17,21 @@ export default function LandingPage({ onStart }) {
 
   return (
     <div className="landing-wrapper">
-      {/* Dynamic Background Effects */}
+      {/* Dynamic Video Background */}
+      <div className="video-background-container">
+        <video 
+          className="video-background"
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source src="/assets/wallpaper.mp4" type="video/mp4" />
+        </video>
+        <div className="video-overlay"></div>
+      </div>
+
+      {/* Dynamic Background Effects (Kept for fallback/extra glow) */}
       <div className="ambient-glow glow-1"></div>
       <div className="ambient-glow glow-2"></div>
       <div className="ambient-glow glow-3"></div>
