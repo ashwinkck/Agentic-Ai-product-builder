@@ -45,6 +45,7 @@ export default function LandingPage({ onStart }) {
 
             <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', marginBottom: '1.5rem', width: '100%' }}>
               <motion.div
+                className="hero-bot"
                 animate={isInitializing ? {
                   scale: [1, 1.5, 0.8, 1.8, 1],
                   rotate: [0, -180, 180, -360, 360],
@@ -68,6 +69,7 @@ export default function LandingPage({ onStart }) {
               </motion.h1>
 
               <motion.div
+                className="hero-bot"
                 animate={isInitializing ? {
                   scale: [1, 1.5, 0.8, 1.8, 1],
                   rotate: [0, 180, -180, 360, -360],
