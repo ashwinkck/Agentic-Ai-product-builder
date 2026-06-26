@@ -13,20 +13,26 @@ export default function Builder({ onBack }) {
     setIsLoading(true)
     setResult('')
 
-    // Mock API call for now
-    setTimeout(() => {
-      setResult(`🚀 [SYSTEM: CONNECTED]
-Analyzing Startup Idea: "${idea}"...
-Agent 1: Market Analyst has finished scanning the web.
-Agent 2: Product Manager has structured the feature list.
-Agent 3: Tech Lead has outlined the stack.
-
---- PRODUCT PLAN ---
-This is a mock response while we wait for the backend to be connected.
-Your idea looks solid and the agents are ready to build the actual plan!
-      `)
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:10000'
+      const response = await fetch(`${apiUrl}/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idea })
+      });
+      
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        setResult(data.result);
+      } else {
+        setResult(`[ERROR] Backend Error: ${data.message}`);
+      }
+    } catch (err) {
+      setResult(`[CONNECTION ERROR] Failed to connect to the CrewAI backend.\n\nEnsure your FastAPI server is running on ${import.meta.env.VITE_API_URL || 'http://localhost:10000'}!\n\nDetails: ${err.message}`);
+    } finally {
       setIsLoading(false)
-    }, 2000)
+    }
   }
 
   return (
@@ -82,7 +88,7 @@ Your idea looks solid and the agents are ready to build the actual plan!
                   <div className="loading-spinner"></div>
                 </div>
               ) : (
-                <div>{result}</div>
+                <div style={{ whiteSpace: 'pre-wrap', textAlign: 'left', lineHeight: '1.6' }}>{result}</div>
               )}
             </div>
           )}

@@ -1,0 +1,37 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from crew_setup import product_crew
+import os
+
+app = FastAPI(title="LaunchPad AI API")
+
+# Allow frontend to communicate with this backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins (good for dev, update in production if needed)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class IdeaRequest(BaseModel):
+    idea: str
+
+@app.get("/")
+def root():
+    return {"status": "Online", "message": "LaunchPad AI API is running!"}
+
+@app.post("/generate")
+def generate_plan(request: IdeaRequest):
+    try:
+        print(f"Received idea: {request.idea}")
+        # Start the CrewAI process
+        result = product_crew.kickoff(inputs={"idea": request.idea})
+        
+        # Result might be a CrewOutput object depending on crewai version, 
+        # converting to string ensures JSON serializability.
+        return {"status": "success", "result": str(result)}
+    except Exception as e:
+        print(f"Error generating plan: {str(e)}")
+        return {"status": "error", "message": str(e)}

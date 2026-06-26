@@ -14,5 +14,6 @@ product_crew = Crew(
         tech_task,
         strategy_task
     ],
-    verbose=True
+    verbose=True,
+    max_rpm=20 # Prevents rate limiting on Groq's free tier
 )
