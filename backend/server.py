@@ -29,9 +29,15 @@ def generate_plan(request: IdeaRequest):
         # Start the CrewAI process
         result = product_crew.kickoff(inputs={"idea": request.idea})
         
+        # Extract individual task outputs
+        agent_outputs = {}
+        for task in product_crew.tasks:
+            # Depending on CrewAI version, output might be a string or TaskOutput object
+            agent_outputs[task.agent.role] = getattr(task.output, "raw", str(task.output))
+        
         # Result might be a CrewOutput object depending on crewai version, 
         # converting to string ensures JSON serializability.
-        return {"status": "success", "result": str(result)}
+        return {"status": "success", "result": str(result), "agent_outputs": agent_outputs}
     except Exception as e:
         print(f"Error generating plan: {str(e)}")
         return {"status": "error", "message": str(e)}

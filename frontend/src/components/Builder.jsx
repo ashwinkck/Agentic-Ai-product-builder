@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import { motion } from 'framer-motion'
+import ReactMarkdown from 'react-markdown'
 
 export default function Builder({ onBack }) {
   const [idea, setIdea] = useState('')
-  const [result, setResult] = useState('')
+  const [result, setResult] = useState(null)
+  const [activeTab, setActiveTab] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const handleGenerate = async () => {
     if (!idea.trim()) return
 
     setIsLoading(true)
-    setResult('')
+    setResult(null)
+    setActiveTab('')
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:10000'
@@ -24,12 +27,15 @@ export default function Builder({ onBack }) {
       const data = await response.json();
       
       if (data.status === 'success') {
-        setResult(data.result);
+        setResult(data.agent_outputs);
+        setActiveTab('Product Strategist'); // Set default tab to the final agent
       } else {
-        setResult(`[ERROR] Backend Error: ${data.message}`);
+        setResult({ error: `[ERROR] Backend Error: ${data.message}` });
+        setActiveTab('error');
       }
     } catch (err) {
-      setResult(`[CONNECTION ERROR] Failed to connect to the CrewAI backend.\n\nEnsure your FastAPI server is running on ${import.meta.env.VITE_API_URL || 'http://localhost:10000'}!\n\nDetails: ${err.message}`);
+      setResult({ error: `[CONNECTION ERROR] Failed to connect to the CrewAI backend.\n\nEnsure your FastAPI server is running on ${import.meta.env.VITE_API_URL || 'http://localhost:10000'}!\n\nDetails: ${err.message}` });
+      setActiveTab('error');
     } finally {
       setIsLoading(false)
     }
@@ -113,8 +119,25 @@ export default function Builder({ onBack }) {
                     {agentThoughts[currentThought]}
                   </div>
                 </div>
+              ) : result?.error ? (
+                <div style={{ whiteSpace: 'pre-wrap', textAlign: 'left', lineHeight: '1.6' }}>{result.error}</div>
               ) : (
-                <div style={{ whiteSpace: 'pre-wrap', textAlign: 'left', lineHeight: '1.6' }}>{result}</div>
+                <div className="markdown-container">
+                  <div className="agent-tabs">
+                    {Object.keys(result).map((agentName) => (
+                      <button 
+                        key={agentName}
+                        className={`tab-btn ${activeTab === agentName ? 'active' : ''}`}
+                        onClick={() => setActiveTab(agentName)}
+                      >
+                        {agentName}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="markdown-body">
+                    <ReactMarkdown>{result[activeTab]}</ReactMarkdown>
+                  </div>
+                </div>
               )}
             </div>
           )}
