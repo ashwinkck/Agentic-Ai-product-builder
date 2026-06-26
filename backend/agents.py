@@ -69,6 +69,20 @@ def get_agents():
         temperature=0.3,
         max_tokens=4000
     )
+
+    # #2 Creating a RAG tool
+    # class StartupKnowledgeSearchTool(BaseTool):
+    #     name:str = "startup_knowledge_search"
+    #     description:str = "Search startup and technology knowledge base"
+
+    #     def _run(self,query: str)-> str:
+    #         docs = retriever.invoke(query)
+    #         # Limit to 2 documents and max 1500 characters to prevent Groq Rate Limiting (TPM)
+    #         context = "\n".join([doc.page_content for doc in docs[:2]])
+    #         return context[:1500]
+
+    # #3 Creating the Tool Instance
+    # # startup_tool = StartupKnowledgeSearchTool()
     market_oracle = Agent(
         role = "Market Oracle",
         goal=  "Understand market demand for startup ideas",
