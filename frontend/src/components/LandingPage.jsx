@@ -22,15 +22,7 @@ export default function LandingPage({ onStart }) {
       <div className="ambient-glow glow-2"></div>
       <div className="ambient-glow glow-3"></div>
 
-      <nav className="top-nav">
-        <div className="nav-logo">
-          <Activity className="text-neon-blue" size={28} />
-          <span className="font-bold">LAUNCHPAD.AI</span>
-        </div>
-        <button className="launch-app-btn" onClick={onStart}>
-          Launch App
-        </button>
-      </nav>
+
 
       <main className="landing-main">
         {/* Hero Section */}
