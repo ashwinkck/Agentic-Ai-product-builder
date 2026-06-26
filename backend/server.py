@@ -28,7 +28,8 @@ def generate_plan(request: IdeaRequest):
         print(f"Received idea: {request.idea}")
         
         # Lazy import to prevent Render 60s timeout during boot
-        from crew_setup import product_crew
+        from crew_setup import get_crew
+        product_crew = get_crew()
         
         # Start the CrewAI process
         result = product_crew.kickoff(inputs={"idea": request.idea})

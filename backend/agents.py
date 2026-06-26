@@ -85,38 +85,37 @@ llm = LLM(
 # #3 Creating the Tool Instance
 # # startup_tool = StartupKnowledgeSearchTool()
 
-market_oracle = Agent(
-    role = "Market Oracle",
-    goal=  "Understand market demand for startup ideas",
-    backstory = "A legendary venture analyst who understands startup market and trends",
-    llm=llm,
-    # max_iter=3, # Uncomment if you add tools back
-    verbose = True
-)
+def get_agents():
+    market_oracle = Agent(
+        role = "Market Oracle",
+        goal=  "Understand market demand for startup ideas",
+        backstory = "A legendary venture analyst who understands startup market and trends",
+        llm=llm,
+        verbose = True
+    )
 
-feature_architect = Agent(
-    role = "Feature Architect",
-    goal = "Design product features for startup ideas",
-    backstory = "A product designer who turns ideas into real product features",
-    llm=llm,
-    # max_iter=3,
-    verbose = True
-)
+    feature_architect = Agent(
+        role = "Feature Architect",
+        goal = "Design product features for startup ideas",
+        backstory = "A product designer who turns ideas into real product features",
+        llm=llm,
+        verbose = True
+    )
 
-tech_stack_architect = Agent(
-    role = "Tech Stack Architect",
-    goal = "Recommend technologies for building the product",
-    backstory = "A senior software architect with deep knowledge of modern tech stacks",
-    llm=llm,
-    # max_iter=3,
-    verbose = True
-)
+    tech_stack_architect = Agent(
+        role = "Tech Stack Architect",
+        goal = "Recommend technologies for building the product",
+        backstory = "A senior software architect with deep knowledge of modern tech stacks",
+        llm=llm,
+        verbose = True
+    )
 
-product_strategist = Agent(
-    role = "Product Strategist",
-    goal = "Create a complete product roadmap",
-    backstory = "An experienced startup founder who plans product launches",
-    llm=llm,
-    # max_iter=3,
-    verbose = True
-)
+    product_strategist = Agent(
+        role = "Product Strategist",
+        goal = "Create a complete product roadmap",
+        backstory = "An experienced startup founder who plans product launches",
+        llm=llm,
+        verbose = True
+    )
+    
+    return market_oracle, feature_architect, tech_stack_architect, product_strategist
