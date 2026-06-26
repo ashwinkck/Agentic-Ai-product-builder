@@ -143,15 +143,20 @@ body {
 
 .hero-section {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   min-height: calc(100vh - 80px);
-  gap: 4rem;
+  position: relative;
 }
 
 .hero-content {
-  flex: 1;
-  max-width: 650px;
+  max-width: 800px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .badge {
@@ -182,7 +187,7 @@ body {
 }
 
 .hero-title {
-  font-size: 4.5rem;
+  font-size: 5.5rem;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 1.5rem;
@@ -194,11 +199,13 @@ body {
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 3rem;
+  max-width: 700px;
 }
 
 .hero-cta-group {
   display: flex;
   gap: 1.5rem;
+  justify-content: center;
 }
 
 .primary-btn {
@@ -241,7 +248,13 @@ body {
 
 /* --- Hero Graphic (Abstract Animation) --- */
 .hero-graphic {
-  flex: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  opacity: 0.3;
+  pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
