@@ -42,7 +42,7 @@ export default function LandingPage({ onStart }) {
             className="hero-content"
           >
             <motion.div variants={itemVariants} className="badge">
-              <span className="live-dot"></span> Next-Gen Web3 Protocol
+              <span className="live-dot"></span> System Online
             </motion.div>
             
             <motion.h1 variants={itemVariants} className="hero-title">
