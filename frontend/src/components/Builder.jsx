@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowLeft } from 'lucide-react'
+import { X } from 'lucide-react'
 
 export default function Builder({ onBack }) {
   const [idea, setIdea] = useState('')
@@ -30,15 +30,10 @@ Your idea looks solid and the agents are ready to build the actual plan!
 
   return (
     <div className="builder-container">
-      <nav className="builder-nav">
-        <button className="back-btn" onClick={onBack}>
-          <ArrowLeft size={20} />
-          <span>Exit Builder</span>
+      <nav className="builder-nav" style={{ border: 'none', background: 'transparent' }}>
+        <button className="back-btn" onClick={onBack} title="Close Builder" style={{ marginLeft: 'auto', background: 'rgba(255, 255, 255, 0.1)', padding: '0.5rem', borderRadius: '50%' }}>
+          <X size={24} />
         </button>
-        <div className="status-indicator">
-          <div className="pulse-dot"></div>
-          <span>SYSTEM ONLINE</span>
-        </div>
       </nav>
 
       <main className="builder-main">
