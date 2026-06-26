@@ -132,13 +132,14 @@ function App() {
             <motion.div
               animate={{ opacity: [0.3, 0.9, 0.3] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              className="intro-text"
               style={{
                 color: 'rgba(255, 255, 255, 0.7)',
-                fontSize: '1.1rem',
-                letterSpacing: '0.4em',
                 fontFamily: 'monospace',
                 textShadow: '0 0 10px rgba(255,255,255,0.3)',
-                zIndex: 10
+                zIndex: 10,
+                textAlign: 'center',
+                padding: '0 1rem'
               }}
             >
               CLICK ANYWHERE TO OPEN

@@ -660,6 +660,11 @@ textarea:focus {
   font-weight: 700;
 }
 
+.intro-text {
+  font-size: 1.1rem;
+  letter-spacing: 0.4em;
+}
+
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
   .top-nav, .builder-nav {
@@ -706,5 +711,10 @@ textarea:focus {
   
   .result-area {
     padding: 1rem;
+  }
+  
+  .intro-text {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
   }
 }
