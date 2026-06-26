@@ -17,37 +17,6 @@ export default function LandingPage({ onStart }) {
 
   return (
     <div className="landing-wrapper">
-      {/* Dynamic Video Background (Visuals) */}
-      <div className="video-background-container">
-        <video
-          className="video-background"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="/assets/wallpaper.mp4" type="video/mp4" />
-        </video>
-        <div className="video-overlay"></div>
-      </div>
-
-      {/* Hidden YouTube Audio Player */}
-      <iframe
-        width="1"
-        height="1"
-        src="https://www.youtube.com/embed/fhL67fnDXcU?autoplay=1&controls=0&loop=1&playlist=fhL67fnDXcU"
-        title="YouTube audio background"
-        frameBorder="0"
-        allow="autoplay"
-        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
-      ></iframe>
-
-      {/* Dynamic Background Effects (Kept for fallback/extra glow) */}
-      <div className="ambient-glow glow-1"></div>
-      <div className="ambient-glow glow-2"></div>
-      <div className="ambient-glow glow-3"></div>
-
-
 
       <main className="landing-main">
         {/* Hero Section */}
