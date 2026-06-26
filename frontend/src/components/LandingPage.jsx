@@ -35,9 +35,27 @@ export default function LandingPage({ onStart }) {
           >
 
 
-            <motion.h1 variants={itemVariants} className="hero-title">
-              <span className="text-gradient">LaunchPad AI</span>
-            </motion.h1>
+            <motion.div variants={itemVariants} style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+              <motion.div 
+                animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }} 
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                style={{ position: 'absolute', left: '-20px', top: '10px', color: 'var(--neon-blue)' }}
+              >
+                <Bot size={64} />
+              </motion.div>
+              
+              <h1 className="hero-title" style={{ position: 'relative', zIndex: 1 }}>
+                <span className="text-gradient">LaunchPad AI</span>
+              </h1>
+
+              <motion.div 
+                animate={{ y: [0, -20, 0], rotate: [0, -10, 10, 0] }} 
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                style={{ position: 'absolute', right: '-20px', top: '20px', color: 'var(--neon-blue)' }}
+              >
+                <Bot size={64} />
+              </motion.div>
+            </motion.div>
 
             <motion.p variants={itemVariants} className="hero-subtitle">
               Leverage a specialized crew of AI agents—a Market Oracle, Feature Architect, Tech Stack Architect, and Product Strategist—equipped with a RAG startup knowledge base to instantly validate, design, and plan your startup idea.
