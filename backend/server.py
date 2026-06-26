@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from crew_setup import product_crew
+# Lazy load crew_setup to speed up FastAPI boot time
 import os
 
 app = FastAPI(title="LaunchPad AI API")
@@ -26,6 +26,10 @@ def root():
 def generate_plan(request: IdeaRequest):
     try:
         print(f"Received idea: {request.idea}")
+        
+        # Lazy import to prevent Render 60s timeout during boot
+        from crew_setup import product_crew
+        
         # Start the CrewAI process
         result = product_crew.kickoff(inputs={"idea": request.idea})
         
