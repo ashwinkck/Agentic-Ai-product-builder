@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 function App() {
+  const [isStarted, setIsStarted] = useState(false)
   const [idea, setIdea] = useState('')
   const [result, setResult] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -11,7 +12,7 @@ function App() {
     setIsLoading(true)
     setResult('')
 
-    // Mock API call for now, since we haven't connected the backend yet
+    // Mock API call for now
     setTimeout(() => {
       setResult(`🚀 [SYSTEM: CONNECTED]
 Analyzing Startup Idea: "${idea}"...
@@ -21,14 +22,39 @@ Agent 3: Tech Lead has outlined the stack.
 
 --- PRODUCT PLAN ---
 This is a mock response while we wait for the backend to be connected.
-Your idea looks solid and the agents are ready to build the actual plan once the API is hooked up!
+Your idea looks solid and the agents are ready to build the actual plan!
       `)
       setIsLoading(false)
     }, 2000)
   }
 
+  if (!isStarted) {
+    return (
+      <div className="landing-page">
+        <div className="landing-content">
+          <h1 className="landing-title">Agentic AI Builder</h1>
+          <p className="landing-subtitle">
+            Deploy autonomous AI agents to research, design, and plan your next big startup idea in seconds.
+          </p>
+          <button 
+            className="start-button futuristic-border"
+            onClick={() => setIsStarted(true)}
+          >
+            INITIALIZE SYSTEM
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
+      <button 
+        className="back-button" 
+        onClick={() => setIsStarted(false)}
+      >
+        ← BACK TO TERMINAL
+      </button>
       <h1>Agentic AI Builder</h1>
       <div className="container futuristic-border">
         <div className="input-group">

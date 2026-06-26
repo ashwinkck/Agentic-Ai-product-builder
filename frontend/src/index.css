@@ -182,3 +182,52 @@ button:disabled:hover {
   border-left: none;
   border-top: none;
 }
+
+/* Landing Page Styles */
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.landing-content {
+  text-align: center;
+  max-width: 800px;
+  padding: 4rem 2rem;
+  background: rgba(11, 19, 43, 0.7);
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.landing-title {
+  font-size: 4.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: 4px;
+}
+
+.landing-subtitle {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.start-button {
+  font-size: 1.5rem;
+  padding: 1.5rem 3rem;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+}
+
+.back-button {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0, 243, 255, 0.4);
+  background: rgba(0, 0, 0, 0.3);
+}
