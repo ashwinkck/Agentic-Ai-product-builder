@@ -15,6 +15,5 @@ def get_crew():
             product_strategist
         ],
         tasks=tasks,
-        verbose=True,
-        max_rpm=20 # Prevents rate limiting on Groq's free tier
+        verbose=True
     )

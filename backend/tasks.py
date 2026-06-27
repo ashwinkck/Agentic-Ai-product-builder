@@ -22,7 +22,7 @@ def get_tasks(market_oracle, feature_architect, tech_stack_architect, product_st
     )
 
     strategy_task = Task(
-        description="Create a development roadmap and launch plan",
+        description="Create a development roadmap and launch plan for this startup idea:{idea}",
         expected_output="product roadmap and milestones",
         agent=product_strategist
     )
