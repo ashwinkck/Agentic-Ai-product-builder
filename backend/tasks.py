@@ -15,7 +15,7 @@ def get_tasks(market_oracle, feature_architect, tech_stack_architect, product_st
     )
 
     tech_task = Task(
-        description="Recommend the technology stack needed to build this product",
+        description="Recommend the technology stack needed to build this {idea}product",
         expected_output="Frontend,backend, database, infrastructure",
         agent=tech_stack_architect,
         async_execution=True
